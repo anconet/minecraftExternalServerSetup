@@ -1,0 +1,30 @@
+services:
+  cloudflared:
+    build:
+      context: .
+      dockerfile: Dockerfile.cloudflared
+    image: cloudflared-with-nc:latest
+    container_name: cloudflared
+    command: tunnel run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - minecraft
+    restart: unless-stopped
+
+  web:
+    image: nginx:alpine
+    container_name: minecraft-web
+    volumes:
+      - ./web/index.html:/usr/share/nginx/html/index.html:ro
+      - ./web/downloads:/usr/share/nginx/html/downloads:ro
+      - ./web/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+
+  minecraft:
+    image: itzg/minecraft-server:latest
+    container_name: minecraft
+    environment:
+      EULA: "TRUE"
+    volumes:
+      - ./minecraft-data:/data
+    restart: unless-stopped
+
