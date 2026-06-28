@@ -17,3 +17,15 @@ flowchart LR
 	MC -->|mounts ./minecraft-data:/data| MC_DATA[(minecraft-data)]
 	WEB -->|mounts ./web/*| WEB_FILES[(web content/config)]
 ```
+
+## Useful MC commands
+```bash
+
+docker exec -it minecraft ...
+	whitelist on
+	add <user>
+	gamemode creative <user>
+	gamemode survival <user>
+	spawnpoint <user>
+	tp <MeToUser> 
+	tp <user> <toMe>
