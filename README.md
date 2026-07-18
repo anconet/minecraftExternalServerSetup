@@ -5,14 +5,14 @@ A repo for depoly an MC setup on my local hypervisor.
 ```mermaid
 flowchart LR
 	subgraph Compose[docker-compose stack]
-		CF[cloudflared container\nimage: cloudflared-with-nc:latest]
-		MC[minecraft container\nimage: itzg/minecraft-server:latest]
-		WEB[minecraft-web container\nimage: nginx:alpine]
+		CF["cloudflared container<br/>image: cloudflared-with-nc:latest"]
+		MC["minecraft container<br/>image: itzg/minecraft-server:latest"]
+		WEB["minecraft-web container<br/>image: nginx:alpine"]
 	end
 
-	CF -->|TCP traffic to\n mc.anconalabs.com| MC
+	CF -->|"TCP traffic to<br/>mc.anconalabs.com"| MC
 	CLOUDFLARE[(Cloudflare Tunnel)] -->|feeds tunnel traffic to| CF
-	CF -->|HTTP trafic to\n mc-setup.anconalabs.com| WEB
+	CF -->|"HTTP traffic to<br/>mc-setup.anconalabs.com"| WEB
 
 	MC -->|mounts ./minecraft-data:/data| MC_DATA[(minecraft-data)]
 	WEB -->|mounts ./web/*| WEB_FILES[(web content/config)]
@@ -29,3 +29,4 @@ docker exec -it minecraft ...
 	spawnpoint <user>
 	tp <MeToUser> 
 	tp <user> <toMe>
+```
